@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="p5.js"></script>
+  <script src="p5.sound.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- A-Frame を読み込む -->
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta charset="utf-8">
+
+</head>
+
+<body>
+  <script src="arsystem.js"></script>
+  <script src="sketch.js"></script>
+
+  <!-- A-FrameにAR.jsを紐づけ、VRボタン非表示、深度バッファ追加 -->
+    <a-scene class="cam" embedded arjs vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true;">
+      <!-- 3DCGモデルを読み込む -->
+      <a-assets>
+        <a-asset-item id="cube" src="assets/asset.glb"></a-asset-item>
+        <a-asset-item id="cube2" src="assets/asset2.glb"></a-asset-item>
+      </a-assets>
+      <!-- マーカーの.pattファイルを読み込む -->
+
+      <a-marker type="pattern" url="assets/marker.patt" se001> <!--マーカー読み込み001-->
+        <a-entity gltf-model="#cube">
+        </a-entity> <!-- 3Dモデルを呼び出す -->
+      </a-marker>
+      <a-marker type="pattern" url="assets/marker2.patt" se002> <!-- マーカー読み込み002-->
+        <a-entity id="box" gltf-model="#cube2"
+          animation="property: scale; from: 1 1 1; to: 1.5 1.5 1.5; dur: 100; loop: false; easing: easeInOutSine; startEvents: anim">
+        </a-entity> <!-- 3Dモデルを呼び出す -->
+      </a-marker>
+      <!-- カメラを追加 -->
+      <a-entity camera></a-entity>
+    </a-scene>
+
+  <div class="red">
+    <input type="text" id="name" placeholder="Your Name">
+    <input type="text" id="message" placeholder="type your message">
+    <input type="text" id="num" placeholder="type num">
+    <button id="send">send</button>
+  </div>
+
+
+</body>
+
+</html>
